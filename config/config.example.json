@@ -3,4 +3,8 @@
 , "magicHash":    "magic"
 , "namespace":    ""
 , "maxListeners": 512
+, "cloudapp": {
+    "username": "cloudapp@host.com",
+    "password": "p4ssw0rd"
+  }
 }
