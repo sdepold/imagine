@@ -1,8 +1,18 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 100px
 }
 
-a {
-  color: #00B7FF;
+div.cloudappItem pre {
+  margin: 10px;
+}
+
+div.cloudappItems a {
+  display: inline-block;
+}
+
+div.cloudappItems img {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  display: block;
 }
