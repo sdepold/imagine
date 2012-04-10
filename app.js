@@ -1,9 +1,12 @@
-var express    = require('express')
-  , imageable  = require("imageable")
-  , connect    = require('connect')
-  , http       = require("http")
-  , fs         = require("fs")
-  , app        = module.exports = express.createServer()
+const express   = require('express')
+    , imageable = require("imageable")
+    , connect   = require('connect')
+    , http      = require("http")
+    , fs        = require("fs")
+    , cloud     = require("cloudapp")
+    , jade      = require('jade')
+
+var app        = module.exports = express.createServer()
   , configFile = __dirname + "/" + (process.env.CONFIG || "config/config.json")
   , config     = JSON.parse(fs.readFileSync(configFile))
   , airbrake   = (config.airbrake ? require("airbrake").createClient(config.airbrake) : null)
@@ -12,7 +15,11 @@ var express    = require('express')
 app.configure(function(){
   connect.logger.token('date', function(){ return imageable.Logger.formatDate(new Date()) })
 
+  // init cloud
+  cloud.setCredentials(config.cloudapp.username, config.cloudapp.password)
+
   app.use(connect.logger({ immediate: true, format: "\\n:date :method | :status | :url (via :referrer)" }))
+  app.use(express.static(__dirname + '/public'));
   app.use(express.bodyParser())
   app.use(express.methodOverride())
   app.use(imageable(config, {
@@ -38,7 +45,11 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', function(req, res, next) {
-  res.send('This is not the page you are looking for.')
+  cloud.getItems({ page: 1, per_page: 10, deleted: 'false' }, function(data) {
+    res.render("index.jade", {
+      cloudappItems: data
+    })
+  })
 })
 
 app.get('/favicon.ico', function(req, res) {
