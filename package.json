@@ -18,7 +18,9 @@
     "express": "=2.5.8",
     "connect": "=1.8.5",
     "imageable": "=0.8.7",
-    "airbrake": "=0.2.4"
+    "airbrake": "=0.2.4",
+    "cloudapp": "0.1.x",
+    "jade": "0.22.x"
   },
   "devDependencies": {
     "vows": ">=0.5.8"
