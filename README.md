@@ -39,6 +39,13 @@ heroku config:add CONFIG=<resultOfJSONStringify>
 # e.g. heroku config:add CONFIG='{"secret":"my-very-secret-secret","magicHash":"magic","namespace":"","maxListeners":512,"cloudapp":{"username":"cloudapp@host.com","password":"p4ssw0rd"}}'
 ```
 
+Now that everything is up and running, you might want to rename the application in order to get a nicer URL for it. Just do this:
+
+```console
+heroku rename nameOfNewApp
+```
+
+
 # Authors/Contributors
 
 - DaWanda GmbH
