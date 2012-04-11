@@ -7,8 +7,8 @@ const express   = require('express')
     , jade      = require('jade')
 
 var app        = module.exports = express.createServer()
-  , configFile = __dirname + "/" + (process.env.CONFIG || "config/config.json")
-  , config     = JSON.parse(fs.readFileSync(configFile))
+  , configFile = __dirname + "/" + (process.env.CONFIG_PATH || "config/config.json")
+  , config     = JSON.parse(process.env.CONFIG || fs.readFileSync(configFile))
   , airbrake   = (config.airbrake ? require("airbrake").createClient(config.airbrake) : null)
 
 // Configuration
@@ -18,8 +18,8 @@ app.configure(function(){
   // init cloud
   cloud.setCredentials(config.cloudapp.username, config.cloudapp.password)
 
-  app.use(connect.logger({ immediate: true, format: "\\n:date :method | :status | :url (via :referrer)" }))
-  app.use(express.static(__dirname + '/public'));
+  app.use(connect.logger({ immediate: true, format: ":date :method | :status | :url (via :referrer)" }))
+  app.use(express.static(__dirname + '/public'))
   app.use(express.bodyParser())
   app.use(express.methodOverride())
   app.use(imageable(config, {
@@ -44,12 +44,40 @@ app.configure('production', function(){
 })
 
 // Routes
-app.get('/', function(req, res, next) {
+app.get('/', function(req, res) {
   cloud.getItems({ page: 1, per_page: 10, deleted: 'false' }, function(data) {
     res.render("index.jade", {
       cloudappItems: data
     })
   })
+})
+
+app.post('/', function(req, res) {
+  if(req.files && req.files.newImage) {
+    cloud.addFile(req.files.newImage.path, function() {
+      res.redirect('/')
+    });
+  } else {
+    res.redirect('/')
+  }
+  // req.form.complete(function(err, fields, files){
+  //   if (err) {
+  //     next(err);
+  //   } else {
+  //     console.log('\nuploaded %s to %s'
+  //       ,  files.image.filename
+  //       , files.image.path);
+  //     res.redirect('back');
+  //   }
+  // });
+
+  // We can add listeners for several form
+  // events such as "progress"
+  // req.form.on('progress', function(bytesReceived, bytesExpected){
+  //   console.log('progress')
+  //   var percent = (bytesReceived / bytesExpected * 100) | 0;
+  //   process.stdout.write('Uploading: %' + percent + '\r');
+  // });
 })
 
 app.get('/favicon.ico', function(req, res) {
