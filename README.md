@@ -1,34 +1,18 @@
 # Description
 
-This app is a demonstrator for the node-imageable middleware.
+This app allows to view all images in your cloudapp account. Furthermore those images can be transformed into code, you could embed in your blog or homepage. It renders a small image which is included into an anchor tag. The small image is furthermore resized with the built-in `node-imageable` component. This app is designed to work with fancybox.
 
-# Get it run
+# Deployment on heroku
 
-First of all, create a `config/config.json`. You might just want to copy the `config/config.example.json`.
-Afterwards run `npm install`. Finally start the server via `node app.js`.
+As you don't want to setup your cloudapp credentials via a public repository, you can use heroku's environment variable setup method to get things done. Obviously it would also help to have the credentials stored locally in one specific file, so you don't have to specify those data all the time via commandline exports. The solution for that is more or less straight forward: Use `config/config.json` for your local development, but make 100% sure to never commit that file (it is already ignored in git). For the actual production usage, we can use [this article](https://devcenter.heroku.com/articles/config-vars).
 
-# And ... what's next?
+First of all you should take a look at the `config/config.example.json`. It's basically an extended version of the configuration file of [node-imageable-server](https://github.com/dawanda/node-imageable-server). What's new in it, is the cloudapp part. Just enter your cloudapp email address and your password and you are done.
 
-Open your favorite browser and run:
+What you have to do to get actually the code run on heroku is [described here](https://devcenter.heroku.com/articles/nodejs). Notice that the `Procfile` is already in place. This is what you have to do, assuming that you already used the heroku binary locally.
 
-    http://localhost:3000/resize/magic?url=http://www.google.com/intl/en_ALL/images/logo.gif&size=200x200
-
-For further information take a look at the node-imageable documentation: https://github.com/dawanda/node-imageable
-
-# Gimme code, dude!
-
-    git clone git://github.com/dawanda/node-imageable-server.git
-    cd node-imageable-server
-    cp config/config.example.json config/config.json
-    npm install .
-    node app.js
-
-    # you can also do sudo PORT=80 NODE_ENV=production node app.js
-
-# Fallback solution
-
-If you need a fallback solution for (whyever) failing resizer apps, you can checkout the `fallback` branch. This app just redirects all
-requests to the url param.
+```console
+heroku create --stack cedar
+```
 
 # Authors/Contributors
 
