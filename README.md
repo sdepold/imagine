@@ -12,6 +12,31 @@ What you have to do to get actually the code run on heroku is [described here](h
 
 ```console
 heroku create --stack cedar
+git push heroku master
+heroku ps:scale web=1
+heroku config:add NODE_ENV=production
+```
+
+After those basic steps, we have to setup the configuration of the project. For that, you just have to run `node` and to execute `JSON.stringify(contentOfYourConfig.json)`. Using the example configuration, it looks like this:
+
+```code
+JSON.stringify({
+  "secret":       "my-very-secret-secret"
+, "magicHash":    "magic"
+, "namespace":    ""
+, "maxListeners": 512
+, "cloudapp": {
+    "username": "cloudapp@host.com",
+    "password": "p4ssw0rd"
+  }
+})
+```
+
+Now take the result and use `config:add` again:
+
+```console
+heroku config:add CONFIG=<resultOfJSONStringify>
+# e.g. heroku config:add CONFIG='{"secret":"my-very-secret-secret","magicHash":"magic","namespace":"","maxListeners":512,"cloudapp":{"username":"cloudapp@host.com","password":"p4ssw0rd"}}'
 ```
 
 # Authors/Contributors
