@@ -29,6 +29,10 @@ JSON.stringify({
     "username": "cloudapp@host.com",
     "password": "p4ssw0rd"
   }
+, "basicAuth": {
+    "username": "username",
+    "password": "p4ssw0rd"
+  }
 })
 ```
 
@@ -36,7 +40,7 @@ Now take the result and use `config:add` again:
 
 ```console
 heroku config:add CONFIG=<resultOfJSONStringify>
-# e.g. heroku config:add CONFIG='{"secret":"my-very-secret-secret","magicHash":"magic","namespace":"","maxListeners":512,"cloudapp":{"username":"cloudapp@host.com","password":"p4ssw0rd"}}'
+# e.g. heroku config:add CONFIG='{"secret":"my-very-secret-secret","magicHash":"magic","namespace":"","maxListeners":512,"cloudapp":{"username":"cloudapp@host.com","password":"p4ssw0rd"}},"basicAuth":{"username":"username","password":"p4ssw0rd"}}'
 ```
 
 Now that everything is up and running, you might want to rename the application in order to get a nicer URL for it. Just do this:
@@ -44,7 +48,6 @@ Now that everything is up and running, you might want to rename the application 
 ```console
 heroku rename nameOfNewApp
 ```
-
 
 # Authors/Contributors
 
