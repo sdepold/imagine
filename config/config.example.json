@@ -7,4 +7,8 @@
     "username": "cloudapp@host.com",
     "password": "p4ssw0rd"
   }
+, "basicAuth": {
+    "username": "username",
+    "password": "p4ssw0rd"
+  }
 }

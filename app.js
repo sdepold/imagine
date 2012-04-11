@@ -19,6 +19,8 @@ app.configure(function(){
   cloud.setCredentials(config.cloudapp.username, config.cloudapp.password)
 
   app.use(connect.logger({ immediate: true, format: ":date :method | :status | :url (via :referrer)" }))
+  if (config.basicAuth)
+    app.use(connect.basicAuth(config.basicAuth.username, config.basicAuth.password))
   app.use(express.static(__dirname + '/public'))
   app.use(express.bodyParser())
   app.use(express.methodOverride())
