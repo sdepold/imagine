@@ -24,9 +24,6 @@ var basicAuth = function(req, res, next) {
 app.configure(function(){
   connect.logger.token('date', function(){ return imageable.Logger.formatDate(new Date()) })
 
-  // init cloud
-  cloud.setCredentials(config.cloudapp.username, config.cloudapp.password)
-
   app.use(connect.logger({ immediate: true, format: ":date :method | :status | :url (via :referrer)" }))
   app.use(express.static(__dirname + '/public'))
   app.use(express.bodyParser())
@@ -54,6 +51,7 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', basicAuth, function(req, res) {
+  cloud.setCredentials(config.cloudapp.username, config.cloudapp.password)
   cloud.getItems({ page: 1, per_page: 10, deleted: 'false' }, function(data) {
     res.render("index.jade", {
       cloudappItems: data
