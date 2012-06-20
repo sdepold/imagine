@@ -53,6 +53,10 @@ app.configure('production', function(){
 app.get('/', basicAuth, function(req, res) {
   cloud.setCredentials(config.cloudapp.username, config.cloudapp.password)
   cloud.getItems({ page: 1, per_page: 10, deleted: 'false' }, function(data) {
+    data = data.filter(function(entry) {
+      return /.*\.(png|gif|bmp|jpg|jpeg)/.test(entry.name)
+    })
+
     res.render("index.jade", {
       cloudappItems: data
     })
