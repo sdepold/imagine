@@ -12,7 +12,8 @@
     "test": "./node_modules/.bin/vows test/*.test.js"
   },
   "engines": {
-    "node": ">=v0.8.14"
+    "node": "~v0.8.15",
+    "npm": "~1.1.66"
   },
   "dependencies": {
     "express": "=2.5.8",
