@@ -30,8 +30,8 @@ script
         , $pre = $("pre", $div)
         , $img = $("img", $pre)
 
-      $img.attr('src', 'http://' + window.location.host + $img.data('src'))
-      $pre.html($pre.html().replace(/</g, '&lt;').replace(/>/g, '&gt;'))
+      $img.attr('data-src', 'http://' + window.location.host + $img.data('src'))
+      $pre.html($pre.html().replace(/</g, '&lt;').replace(/>/g, '&gt;').replace('data-src', 'src'))
     })
 
     window.prettyPrint && prettyPrint()
