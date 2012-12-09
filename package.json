@@ -13,7 +13,7 @@
   },
   "engines": {
     "node": "~v0.8.14",
-    "npm": "~1.1.66"
+    "npm": "~1.1.65"
   },
   "dependencies": {
     "express": "=2.5.8",
