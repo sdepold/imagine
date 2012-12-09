@@ -16,7 +16,7 @@ h2 Uploaded images
   div.cloudappItem.modal.hide.fade(style="display: none", id="modal#{item.id}")
     pre.prettyprint.linenums
       a(href=item.remote_url)
-        img(align="left", height="80", width="80", src="/fit/magic/#{item.name}?url=#{encodeURIComponent(item.remote_url)}&size=80x80")
+        img(align="left", height="80", width="80", data-src="/fit/magic/#{item.name}?url=#{encodeURIComponent(item.remote_url)}&size=80x80")
 
 div.cloudappItems
   - for item in cloudappItems
@@ -30,7 +30,7 @@ script
         , $pre = $("pre", $div)
         , $img = $("img", $pre)
 
-      $img.attr('src', 'http://' + window.location.host + $img.attr('src'))
+      $img.attr('src', 'http://' + window.location.host + $img.data('src'))
       $pre.html($pre.html().replace(/</g, '&lt;').replace(/>/g, '&gt;'))
     })
 
